@@ -1,0 +1,35 @@
+CREATE TABLE "user"(
+	id int IDENTITY(1,1) PRIMARY KEY,
+	name nvarchar(50) ,
+	accountNumber int ,
+	password nvarchar(100) ,
+	accountBalance int ,
+	lastUpdatedOn datetime );
+
+
+CREATE TABLE share(
+	id int IDENTITY(1,1) PRIMARY KEY ,
+	symbol varchar(10) ,
+	companyName varchar(20) ,
+	price decimal(12, 2) ,
+	lastUpdatedOn datetime );
+
+
+CREATE TABLE userShares(
+	id int IDENTITY(1,1) PRIMARY KEY,
+	userid int foreign key references "user"(id),
+	shareid int foreign key references share(id) ,
+	companyName varchar(20) ,
+	shareCount int );
+
+CREATE TABLE "transaction"(
+	id int IDENTITY(1,1) PRIMARY KEY,
+	shareid int foreign key references share(id),
+	sharecount int ,
+	pricePerShare decimal(12, 2) ,
+	transactedOn datetime ,
+	transactionCharges decimal(12, 2) ,
+	sttCharges decimal(12, 2) ,
+	type int ,
+	userid int foreign key references "user"(id));
+

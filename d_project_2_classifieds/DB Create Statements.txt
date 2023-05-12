@@ -1,0 +1,40 @@
+CREATE TABLE  "user" (
+  id   int  IDENTITY(1,1) PRIMARY KEY,
+  name   varchar (100) ,
+  phone   varchar (15) ,
+  email   varchar (50) ,
+  password   varchar (100) ,
+  address   varchar (100) ,
+  department   varchar (20) ,
+  type   int  ,
+  lastUpdatedOn   datetime  ,
+  status   int  )
+
+
+CREATE TABLE category(
+ id int IDENTITY(1,1) primary key,
+ title varchar(100)  ,
+ lastUpdatedOn datetime )
+
+CREATE TABLE classifieds(
+  id   int  IDENTITY(1,1) PRIMARY KEY,
+  categoryId   int  foreign key references category(id),
+  status   int  ,
+  headline   varchar (100) ,
+  productName   varchar (50) ,
+  brand   varchar (25) ,
+  condition   int  ,
+  description   varchar (500) ,
+  price   varchar (50) ,
+  pictures   varchar (500) ,
+  lastUpdatedOn   datetime  ,
+  userid   int  FOREIGN KEY REFERENCES "user"(id))
+
+CREATE TABLE "order"(
+  id   int  IDENTITY(1,1) PRIMARY KEY,
+  classifiedId   int FOREIGN KEY REFERENCES classifieds(id) ,
+  fromUserId   int FOREIGN KEY REFERENCES "user"(id)  ,
+  toUserId   int  FOREIGN KEY REFERENCES "user"(id) ,
+  proposedPrice   int   ,
+  status   int   ,
+  lastUpdatedOn   datetime  )
